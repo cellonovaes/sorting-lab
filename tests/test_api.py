@@ -17,6 +17,22 @@ def test_methods() -> None:
     data = res.json()
     ids = {m["id"] for m in data["methods"]}
     assert ids == {"bubble", "selection", "insertion", "merge", "quick", "heap", "tim"}
+    for method in data["methods"]:
+        assert method["name"]
+        assert method["complexity_best"]
+        assert method["complexity_average"]
+        assert method["complexity_worst"]
+        assert isinstance(method["stable"], bool)
+        assert method["blurb"]
+        assert len(method["blurb"]) > 10
+
+
+def test_methods_quadratic_average() -> None:
+    res = client.get("/methods")
+    by_id = {m["id"]: m for m in res.json()["methods"]}
+    for mid in ("bubble", "selection", "insertion"):
+        avg = by_id[mid]["complexity_average"]
+        assert "n²" in avg or "n^2" in avg
 
 
 def test_sort_single() -> None:
@@ -58,3 +74,14 @@ def test_index_portuguese() -> None:
     assert res.status_code == 200
     assert "Sorting Lab" in res.text
     assert "Ordenar" in res.text
+    assert 'id="method-blurb"' in res.text
+
+
+def test_app_js_has_educational_ux() -> None:
+    res = client.get("/app.js")
+    assert res.status_code == 200
+    body = res.text
+    assert "Complexidade (médio)" in body
+    assert "Estável" in body
+    assert "needsLargeNWarning" in body
+    assert "method-blurb" in body or "methodBlurbEl" in body

@@ -94,7 +94,27 @@ button.primary {
 .message {
   min-height: 1.25rem;
   margin: 0.75rem 0 0;
+}
+
+.message.is-error {
   color: var(--danger);
+}
+
+.message.is-muted {
+  color: var(--muted);
+}
+
+.message.is-warn {
+  color: #e6b84d;
+}
+
+.blurb {
+  margin: 0 0 0.75rem;
+  padding: 0.75rem 1rem;
+  border-left: 3px solid var(--accent);
+  background: #121a26;
+  color: var(--muted);
+  line-height: 1.45;
 }
 
 .table-wrap {

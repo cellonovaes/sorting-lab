@@ -53,3 +53,13 @@ def test_cli_unknown_method() -> None:
     proc = run_cli("1", "2", "--method", "radix")
     assert proc.returncode != 0
     assert proc.stderr
+
+
+def test_cli_list_methods() -> None:
+    proc = run_cli("--list-methods")
+    assert proc.returncode == 0
+    assert "Bubble Sort" in proc.stdout
+    assert "Tim Sort" in proc.stdout
+    assert "Complexidade (médio)" in proc.stdout
+    assert "Estável" in proc.stdout
+    assert "Percorre a lista" in proc.stdout or "híbrido" in proc.stdout.lower()

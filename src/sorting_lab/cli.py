@@ -2,7 +2,7 @@ import argparse
 import sys
 
 from sorting_lab.sorting.engine import SequenceValidationError, sort_sequence
-from sorting_lab.sorting.registry import METHOD_NAMES
+from sorting_lab.sorting.registry import METHOD_NAMES, list_method_meta
 
 
 def _parse_tokens(tokens: list[str]) -> list[int]:
@@ -61,6 +61,16 @@ def _print_table(results) -> None:
         print(f"\nOrdenado: {results[0].sorted}")
 
 
+def _print_method_list() -> None:
+    for meta in list_method_meta():
+        stable_label = "sim" if meta.stable else "não"
+        print(f"{meta.name} ({meta.id})")
+        print(f"  Complexidade (médio): {meta.complexity_average}")
+        print(f"  Estável: {stable_label}")
+        print(f"  {meta.blurb}")
+        print()
+
+
 def main(argv: list[str] | None = None) -> int:
     parser = argparse.ArgumentParser(
         description="Ordena uma sequência de inteiros com algoritmos clássicos.",
@@ -75,7 +85,16 @@ def main(argv: list[str] | None = None) -> int:
         default="all",
         help="bubble, selection, insertion, merge, quick, heap, tim ou all",
     )
+    parser.add_argument(
+        "--list-methods",
+        action="store_true",
+        help="Lista algoritmos com complexidade, estabilidade e blurb educacional",
+    )
     args = parser.parse_args(argv)
+
+    if args.list_methods:
+        _print_method_list()
+        return 0
 
     try:
         tokens = _expand_args(args.sequence)

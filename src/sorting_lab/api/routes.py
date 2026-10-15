@@ -9,7 +9,7 @@ from sorting_lab.api.schemas import (
     SortResultItem,
 )
 from sorting_lab.sorting.engine import SequenceValidationError, sort_sequence
-from sorting_lab.sorting.registry import METHOD_IDS, METHOD_NAMES
+from sorting_lab.sorting.registry import list_method_meta
 
 router = APIRouter()
 
@@ -31,8 +31,16 @@ def health() -> HealthResponse:
 def methods() -> MethodsResponse:
     return MethodsResponse(
         methods=[
-            MethodInfo(id=method_id, name=METHOD_NAMES[method_id])
-            for method_id in METHOD_IDS
+            MethodInfo(
+                id=meta.id,
+                name=meta.name,
+                complexity_best=meta.complexity_best,
+                complexity_average=meta.complexity_average,
+                complexity_worst=meta.complexity_worst,
+                stable=meta.stable,
+                blurb=meta.blurb,
+            )
+            for meta in list_method_meta()
         ]
     )
 

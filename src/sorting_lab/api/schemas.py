@@ -21,6 +21,11 @@ class HealthResponse(BaseModel):
 class MethodInfo(BaseModel):
     id: str
     name: str
+    complexity_best: str
+    complexity_average: str
+    complexity_worst: str
+    stable: bool
+    blurb: str
 
 
 class MethodsResponse(BaseModel):
