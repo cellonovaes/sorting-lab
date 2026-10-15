@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Sorting Lab</title>
+    <link rel="stylesheet" href="/styles.css" />
+  </head>
+  <body>
+    <main class="container">
+      <header>
+        <h1>Sorting Lab</h1>
+        <p>Laboratório educacional para ordenar inteiros e comparar algoritmos.</p>
+      </header>
+
+      <section class="panel">
+        <label for="sequence">Sequência (inteiros separados por espaço ou vírgula)</label>
+        <textarea id="sequence" rows="4" placeholder="5 3 8 1 9 2"></textarea>
+
+        <div class="row">
+          <div>
+            <label for="method">Algoritmo</label>
+            <select id="method">
+              <option value="all">Todos (comparar)</option>
+            </select>
+          </div>
+          <div>
+            <label for="random-n">Gerar N aleatórios</label>
+            <input id="random-n" type="number" min="1" max="10000" value="20" />
+          </div>
+          <div>
+            <label for="random-min">Mín</label>
+            <input id="random-min" type="number" value="-100" />
+          </div>
+          <div>
+            <label for="random-max">Máx</label>
+            <input id="random-max" type="number" value="100" />
+          </div>
+        </div>
+
+        <div class="actions">
+          <button type="button" id="btn-generate">Gerar aleatório</button>
+          <button type="button" id="btn-sort" class="primary">Ordenar</button>
+        </div>
+        <p id="message" class="message" role="alert"></p>
+      </section>
+
+      <section class="panel" id="results-panel" hidden>
+        <h2>Resultados</h2>
+        <p id="sorted-output"></p>
+        <div class="table-wrap">
+          <table id="results-table">
+            <thead>
+              <tr>
+                <th>Método</th>
+                <th>Tempo (ms)</th>
+                <th>Comparações</th>
+                <th>Trocas</th>
+              </tr>
+            </thead>
+            <tbody></tbody>
+          </table>
+        </div>
+      </section>
+
+      <footer>
+        <a href="/docs" target="_blank" rel="noopener">Documentação Swagger</a>
+      </footer>
+    </main>
+    <script src="/app.js"></script>
+  </body>
+</html>
